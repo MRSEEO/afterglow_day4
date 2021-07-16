@@ -3,14 +3,17 @@ init:
     $ mods['p_day4'] = "Послесвечение. День 4"
 
 #sounds
-#$ heartbeat = "mods/afterglow/sound/heartbeat.mp3"
-#$ lighter = "mods/afterglow/sound/lighter.ogg"
+    $ groza = "mods/afterglow_day4/sounds/groza.mp3"
 
 #music
-#$ d1_polyana = "mods/afterglow/music/d1_polyana.mp3"
+    $ olesya_death = "mods/afterglow_day4/music/olesya_death.mp3"
 
 #ambience
     $ ambience_ocean = "mods/afterglow_day4/ambience/ocean.mp3"
+
+    $ rain_inside = "mods/afterglow_day4/ambience/rain_inside.mp3"
+    $ light_rain = "mods/afterglow_day4/ambience/light_rain.mp3"
+    $ heavy_rain = "mods/afterglow_day4/ambience/heavy_rain.mp3"
 
 #images
     image dark_lake = im.Scale("mods/afterglow_day4/images/dark_lake.jpg", 1920, 1080)
@@ -342,7 +345,7 @@ scene house with dissolve
 "Уставшие от пыли легкие заставили вылезти на улицу."
 "Найденные вещи мы поделили примерно поровну, ружьё я взял в свободную руку."
 #(Гром)
-#play sound groza
+play sound groza volume 0.3
 extend "Воздух был неестественно влажным и горячим, и в тот же момент на горизонте что то гулко треснуло."
 show sl sad pioneer with dspr
 sl "А нам ещё на озёра надо."
@@ -470,6 +473,7 @@ scene square_rain_light with dissolve
 
 $ night_time()
 #моросящий дождик - звук
+play ambience light_rain
 "На крыльце я поймал двух рыжих, дал обеим по ладошке и повёл к себе."
 "На улице уже моросил дождик, но стоило посмотреть на небо и все представления о грядущем вмиг менялись."
 "Казалось, на нас шёл черный как смоль бесконечный океан, готовый обрушить первую волну в ту же секунду."
@@ -478,12 +482,15 @@ scene houses_night with dspr
 "Тьму прорезали огромные, возникающие почти постоянно молнии, а как только мы вышли на финишную прямую, с востока подул порывистый ветер. Не знаю, как, не знаю почему, но именно он заставил прибавить шагу."
 "По спине забегали мурашки, глаза сами прищурились."
 #молния и ливень
+play sound groza
+play ambience heavy_rain
 "Стоило мне подойти к домику, как в небесах что-то противно треснуло и этот звук оглушающим грохотом раскатился по округе."
 "Мелкие капли вмиг сменились на ливень, ветер задул с такой силой, что кроны мелких берёзок, росших у домика, прижало к земле."
 "Мы спешно вошли в помещение."
 
 scene int_gg_house_night with dspr
 play sound sfx_close_door_1
+play ambience rain_inside
 pause(0.5)
 show dv sad pioneer at right with dspr
 show us sad pioneer at left with dspr
@@ -562,6 +569,7 @@ scene bg black with dissolve
 "В голове плыли реалистичные, но от чего то донельзя странные картины. Представил, как Славя будет порываться очистить тропинки «Совенка» от нападавших веточек, листьев и прочего природного мусора."
 "Мысленно пообещав себе запретить блондинки перенапрягаться и заниматься вещами не столь важными в данной ситуации, я наконец прикрыл глаза и уснул."
 #Автобус внутри
+stop ambience fadeout 0.5
 show prologue_dream with dspr
 show bg int_bus behind prologue_dream with dissolve
 "Мне снился пустой автобус."
@@ -577,6 +585,7 @@ show bg int_bus behind prologue_dream with dissolve
 
 scene bg black
 hide prologue_dream
+play ambience rain_inside
 "Проснулся я от какого-то странного ощущения, будто что-то было не на месте."
 "Я повернулся в сторону, посмотрел на девочек."
 "Алиса все также уютно накрывшись одеялом лежала на кровати."
@@ -610,6 +619,7 @@ dv "Береги себя и.... {w}и притащи мелкую домой."
 
 play sound sfx_close_door_1
 scene houses_night with dspr
+play ambience heavy_rain
 
 $ persistent.sprite_time = "night"
 "По ушам трещал гром и собственный пульс."
@@ -639,6 +649,7 @@ scene dark_rain with dspr
 "По спине табунами носились мурашки, в глазах летали неприятные круги."
 me "Ульян!"
 scene bg int_dining_hall_night with dspr
+stop ambience
 "Я влетел в здание столовой, оглядываясь по сторонам и чувствуя непонятно откуда взявшийся сквозняк."
 "Быстрым шагом направился на кухню, пару раз навернулся, больно приземлившись коленками, порвав плащ."
 "В святая святых столовой было прохладно и мокро - какая-то ветка очень удачно разнесла окно, благополучно уничтожив часть посуды."
@@ -660,11 +671,13 @@ scene bg black
 "Площадь, "
 #(ПЛ)
 scene square_rain with dspr
+play ambience heavy_rain
 extend "улица, "
 #(УЛ),
 scene entrance_rain with dspr
 extend "всё мелькало, лёгкие сигнализировали о работе на износ."
 "Нож неудобно лежал в руке, заставляя часто перехватывать его."
+play music olesya_death fadein 1.0
 "Ворота лагеря были почему-то открыты, сразу за ними, склонившись над чем-то стоял на коленях Шурик."
 "Рядом валялось ружьё."
 "Я осторожно подошёл ближе."
@@ -706,6 +719,8 @@ scene bg black with dissolve
 "Кибернетик не раздумывая пошёл в медпункт, я же направился в столовую. Площадь."
 "Пустая и тёмная площадь."
 "Никогда больше здесь не загорятся фонарики, никогда не потанцуют пионеры, никогда..."
+stop music fadeout 1.0
+stop ambience fadeout 1.0
 #столовая
 scene bg int_dining_hall_night with dspr
 "Ульяна, как ни странно, дождалась меня, где велел."
@@ -729,9 +744,11 @@ us "А я Алисе расскажу, что ты водку пил."
 me "Говори."
 "Понимая, что никак не получится повлиять на ситуацию, мелкая притихла, видимо, что-то поняла."
 scene houses_night with dissolve
+play ambience heavy_rain fadein 1.0
 "Обратно шли, устроившись под одним дождевиком, в тесноте, да не в обиде. Жуть, которая произошла никак не хотела укладываться в голове."
 "Ветер с востока постепенно стихал, дождь превратился в паршивую морось, пробирая до мозга костей."
 scene int_gg_house_night with dissolve
+play ambience rain_inside fadein 0.5
 "Алиса ждала, уже одетая в форму. В домике горела свечка."
 show dv shocked pioneer with dspr
 dv "Улька, ты где пропадала?!"
